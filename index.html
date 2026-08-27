@@ -257,6 +257,7 @@
 
         <div class="grupo">
             <label for="placa">Número de móvil o placa</label>
+
             <input
                 type="text"
                 id="placa"
@@ -280,90 +281,57 @@
             <div class="tipos-reporte">
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="HIDRÁULICO">
+                    <input type="checkbox" name="tipoReporte" value="HIDRÁULICO">
                     HIDRÁULICO
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="MECÁNICO">
+                    <input type="checkbox" name="tipoReporte" value="MECÁNICO">
                     MECÁNICO
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="ELÉCTRICO">
+                    <input type="checkbox" name="tipoReporte" value="ELÉCTRICO">
                     ELÉCTRICO
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="CHASIS">
+                    <input type="checkbox" name="tipoReporte" value="CHASIS">
                     CHASIS
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="ESTRUCTURAL">
+                    <input type="checkbox" name="tipoReporte" value="ESTRUCTURAL">
                     ESTRUCTURAL
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="NEUMÁTICO">
+                    <input type="checkbox" name="tipoReporte" value="NEUMÁTICO">
                     NEUMÁTICO
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="MOTOR">
+                    <input type="checkbox" name="tipoReporte" value="MOTOR">
                     MOTOR
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="TRANSMISIÓN">
+                    <input type="checkbox" name="tipoReporte" value="TRANSMISIÓN">
                     TRANSMISIÓN
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="FRENOS">
+                    <input type="checkbox" name="tipoReporte" value="FRENOS">
                     FRENOS
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="SEGURIDAD">
+                    <input type="checkbox" name="tipoReporte" value="SEGURIDAD">
                     SEGURIDAD
                 </label>
 
                 <label class="opcion-reporte">
-                    <input
-                        type="checkbox"
-                        name="tipoReporte"
-                        value="OTRO">
+                    <input type="checkbox" name="tipoReporte" value="OTRO">
                     OTRO
                 </label>
 
@@ -509,6 +477,9 @@
 
     let archivosFotos = [];
 
+    const URL_GOOGLE_SHEETS =
+        "https://script.google.com/macros/s/AKfycbxm0E5HPNo-iLVdOAzjFTdOLrf6P08CPMSmf4hE_i_9LW5qQJxpIWmnGSarXk_ds4ou/exec";
+
 
     // FECHA AUTOMÁTICA
     function actualizarFecha() {
@@ -635,6 +606,64 @@
     }
 
 
+    // GUARDAR EN GOOGLE SHEETS
+    function guardarEnGoogleSheets(
+        fecha,
+        ubicacion,
+        contratista,
+        tipoMev,
+        sticker,
+        placa,
+        coincide,
+        tiposReporte,
+        observaciones,
+        inspector
+    ) {
+
+        const datos = new URLSearchParams();
+
+        datos.append("fecha", fecha);
+        datos.append("ubicacion", ubicacion);
+        datos.append("contratista", contratista);
+        datos.append("tipoMev", tipoMev);
+        datos.append("sticker", sticker);
+        datos.append("placa", placa);
+        datos.append("coincide", coincide);
+        datos.append(
+            "tiposReporte",
+            tiposReporte.join(", ")
+        );
+        datos.append("observaciones", observaciones);
+        datos.append("inspector", inspector);
+
+
+        fetch(
+            URL_GOOGLE_SHEETS,
+            {
+                method: "POST",
+                mode: "no-cors",
+                body: datos
+            }
+        )
+        .then(function() {
+
+            console.log(
+                "Reporte enviado a Google Sheets."
+            );
+
+        })
+        .catch(function(error) {
+
+            console.error(
+                "Error al guardar el reporte:",
+                error
+            );
+
+        });
+
+    }
+
+
     // GENERAR REPORTE
     function generarReporte() {
 
@@ -745,6 +774,21 @@ ${inspector}`;
         ).scrollIntoView({
             behavior: "smooth"
         });
+
+
+        // GUARDAR LOS DATOS EN GOOGLE SHEETS
+        guardarEnGoogleSheets(
+            fecha,
+            ubicacion,
+            contratista,
+            tipoMev,
+            sticker,
+            placa,
+            coincide,
+            tiposReporte,
+            observaciones,
+            inspector
+        );
 
     }
 
