@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Inspección</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f4f7;
+            color: #222;
+        }
+
+        .contenedor {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .encabezado {
+            background: #1f2937;
+            color: white;
+            padding: 22px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        .encabezado h1 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .encabezado p {
+            margin: 8px 0 0;
+            font-size: 14px;
+        }
+
+        .formulario {
+            background: white;
+            padding: 25px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .grupo {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 16px;
+            background: white;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .fecha {
+            background: #e5e7eb;
+        }
+
+        .tipos-reporte {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 12px;
+            background: #f8fafc;
+        }
+
+        .opcion-reporte {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 4px;
+            cursor: pointer;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .opcion-reporte input {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .ayuda {
+            font-size: 13px;
+            color: #666;
+            margin-top: 7px;
+        }
+
+        .nombre-otro {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .botones {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 13px 18px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .generar {
+            background: #2563eb;
+            color: white;
+            flex: 1;
+        }
+
+        .limpiar {
+            background: #e5e7eb;
+            color: #222;
+        }
+
+        .whatsapp {
+            background: #25D366;
+            color: white;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .resultado {
+            display: none;
+            margin-top: 25px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .resultado h2 {
+            margin-top: 0;
+        }
+
+        .reporte {
+            background: #f8fafc;
+            border: 1px solid #dbe2ea;
+            border-radius: 8px;
+            padding: 18px;
+            white-space: pre-wrap;
+            line-height: 1.35;
+            font-size: 15px;
+        }
+
+        .fotos-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .foto {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .nota {
+            font-size: 13px;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        @media (max-width: 600px) {
+
+            .contenedor {
+                padding: 10px;
+            }
+
+            .formulario,
+            .resultado {
+                padding: 17px;
+            }
+
+            .encabezado h1 {
+                font-size: 21px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="encabezado">
+        <h1>REPORTE DE INSPECCIÓN</h1>
+        <p>Formulario estandarizado de inspección</p>
+    </div>
+
+    <div class="formulario">
+
+        <div class="grupo">
+            <label for="fecha">Fecha del reporte</label>
+            <input type="text" id="fecha" class="fecha" readonly>
+        </div>
+
+        <div class="grupo">
+            <label for="ubicacion">Ubicación</label>
+            <input type="text" id="ubicacion" placeholder="Escriba la ubicación">
+        </div>
+
+        <div class="grupo">
+            <label for="contratista">Contratista</label>
+            <input type="text" id="contratista" placeholder="Escriba el contratista">
+        </div>
+
+        <div class="grupo">
+            <label for="tipoMev">Tipo de MEV</label>
+            <input type="text" id="tipoMev" placeholder="Escriba el tipo de MEV">
+        </div>
+
+        <div class="grupo">
+            <label for="sticker">¿Cuenta con sticker?</label>
+
+            <select id="sticker">
+                <option value="">Seleccione una opción</option>
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+                <option value="VISITANTE">VISITANTE</option>
+            </select>
+        </div>
+
+        <div class="grupo">
+            <label for="placa">Número de móvil o placa</label>
+            <input
+                type="text"
+                id="placa"
+                placeholder="Escriba el número de móvil o placa">
+        </div>
+
+        <div class="grupo">
+            <label for="coincide">¿La información coincide?</label>
+
+            <select id="coincide">
+                <option value="">Seleccione una opción</option>
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+            </select>
+        </div>
+
+        <div class="grupo">
+
+            <label>Tipo de reporte</label>
+
+            <div class="tipos-reporte">
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="HIDRÁULICO">
+                    HIDRÁULICO
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="MECÁNICO">
+                    MECÁNICO
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="ELÉCTRICO">
+                    ELÉCTRICO
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="CHASIS">
+                    CHASIS
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="ESTRUCTURAL">
+                    ESTRUCTURAL
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="NEUMÁTICO">
+                    NEUMÁTICO
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="MOTOR">
+                    MOTOR
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="TRANSMISIÓN">
+                    TRANSMISIÓN
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="FRENOS">
+                    FRENOS
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="SEGURIDAD">
+                    SEGURIDAD
+                </label>
+
+                <label class="opcion-reporte">
+                    <input
+                        type="checkbox"
+                        name="tipoReporte"
+                        value="OTRO">
+                    OTRO
+                </label>
+
+            </div>
+
+            <div class="ayuda">
+                Puede seleccionar una o varias opciones.
+            </div>
+
+        </div>
+
+        <div class="grupo">
+
+            <label for="observaciones">
+                Observaciones
+            </label>
+
+            <textarea
+                id="observaciones"
+                placeholder="Escriba aquí todas las observaciones necesarias">
+            </textarea>
+
+        </div>
+
+        <div class="grupo">
+
+            <label for="fotos">
+                Registro fotográfico
+            </label>
+
+            <input
+                type="file"
+                id="fotos"
+                accept="image/*"
+                multiple>
+
+            <div class="nota">
+                Puede seleccionar una o varias fotografías.
+            </div>
+
+            <div
+                id="fotosPreview"
+                class="fotos-preview">
+            </div>
+
+        </div>
+
+        <div class="grupo">
+
+            <label for="inspector">
+                Inspector
+            </label>
+
+            <select id="inspector" onchange="mostrarNombreOtro()">
+
+                <option value="">
+                    Seleccione el inspector
+                </option>
+
+                <option value="RONAL BASTIDAS">
+                    RONAL BASTIDAS
+                </option>
+
+                <option value="JORGE HERNANDEZ">
+                    JORGE HERNANDEZ
+                </option>
+
+                <option value="CARLOS RAMOS">
+                    CARLOS RAMOS
+                </option>
+
+                <option value="OTRO">
+                    OTRO
+                </option>
+
+            </select>
+
+            <div
+                id="nombreOtro"
+                class="nombre-otro">
+
+                <label for="inspectorOtro">
+                    Nombre del inspector
+                </label>
+
+                <input
+                    type="text"
+                    id="inspectorOtro"
+                    placeholder="Escriba el nombre del inspector">
+
+            </div>
+
+        </div>
+
+        <div class="botones">
+
+            <button
+                class="generar"
+                onclick="generarReporte()">
+
+                GENERAR REPORTE
+
+            </button>
+
+            <button
+                class="limpiar"
+                onclick="limpiarFormulario()">
+
+                LIMPIAR
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="resultado"
+        class="resultado">
+
+        <h2>REPORTE GENERADO</h2>
+
+        <div
+            id="textoReporte"
+            class="reporte">
+        </div>
+
+        <button
+            class="whatsapp"
+            onclick="compartirWhatsApp()">
+
+            COMPARTIR POR WHATSAPP
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    let archivosFotos = [];
+
+
+    // FECHA AUTOMÁTICA
+    function actualizarFecha() {
+
+        const ahora = new Date();
+
+        const opciones = {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        };
+
+        document.getElementById("fecha").value =
+            ahora.toLocaleString("es-CO", opciones);
+
+    }
+
+    actualizarFecha();
+
+
+    // MOSTRAR CAMPO PARA OTRO INSPECTOR
+    function mostrarNombreOtro() {
+
+        const inspector =
+            document.getElementById("inspector").value;
+
+        const campo =
+            document.getElementById("nombreOtro");
+
+        const nombre =
+            document.getElementById("inspectorOtro");
+
+
+        if (inspector === "OTRO") {
+
+            campo.style.display = "block";
+
+            nombre.focus();
+
+        } else {
+
+            campo.style.display = "none";
+
+            nombre.value = "";
+
+        }
+
+    }
+
+
+    // FOTOGRAFÍAS
+    document.getElementById("fotos").addEventListener(
+        "change",
+        function(event) {
+
+            archivosFotos =
+                Array.from(event.target.files);
+
+            const contenedor =
+                document.getElementById("fotosPreview");
+
+            contenedor.innerHTML = "";
+
+            archivosFotos.forEach(function(archivo) {
+
+                const imagen =
+                    document.createElement("img");
+
+                imagen.className = "foto";
+
+                imagen.src =
+                    URL.createObjectURL(archivo);
+
+                contenedor.appendChild(imagen);
+
+            });
+
+        }
+    );
+
+
+    // OBTENER TIPOS DE REPORTE
+    function obtenerTiposReporte() {
+
+        const seleccionados = [];
+
+        const casillas =
+            document.querySelectorAll(
+                'input[name="tipoReporte"]:checked'
+            );
+
+        casillas.forEach(function(casilla) {
+
+            seleccionados.push(
+                casilla.value
+            );
+
+        });
+
+        return seleccionados;
+
+    }
+
+
+    // OBTENER NOMBRE DEL INSPECTOR
+    function obtenerInspector() {
+
+        const inspector =
+            document.getElementById("inspector").value;
+
+        if (inspector === "OTRO") {
+
+            return document
+                .getElementById("inspectorOtro")
+                .value
+                .trim();
+
+        }
+
+        return inspector;
+
+    }
+
+
+    // GENERAR REPORTE
+    function generarReporte() {
+
+        const fecha =
+            document.getElementById("fecha").value;
+
+        const ubicacion =
+            document
+                .getElementById("ubicacion")
+                .value
+                .trim();
+
+        const contratista =
+            document
+                .getElementById("contratista")
+                .value
+                .trim();
+
+        const tipoMev =
+            document
+                .getElementById("tipoMev")
+                .value
+                .trim();
+
+        const sticker =
+            document.getElementById("sticker").value;
+
+        const placa =
+            document
+                .getElementById("placa")
+                .value
+                .trim();
+
+        const coincide =
+            document.getElementById("coincide").value;
+
+        const tiposReporte =
+            obtenerTiposReporte();
+
+        const observaciones =
+            document
+                .getElementById("observaciones")
+                .value
+                .trim();
+
+        const inspector =
+            obtenerInspector();
+
+
+        if (
+            !ubicacion ||
+            !contratista ||
+            !tipoMev ||
+            !sticker ||
+            !placa ||
+            !coincide ||
+            tiposReporte.length === 0 ||
+            !observaciones ||
+            !inspector
+        ) {
+
+            alert(
+                "Debe completar todos los campos y seleccionar al menos un tipo de reporte y un inspector."
+            );
+
+            return;
+
+        }
+
+
+        const cantidadFotos =
+            archivosFotos.length;
+
+
+        const reporte =
+`REPORTE DE INSPECCIÓN
+Fecha: ${fecha}
+Ubicación: ${ubicacion}
+Contratista: ${contratista}
+Tipo de MEV: ${tipoMev}
+Cuenta con sticker: ${sticker}
+Número de móvil o placa: ${placa}
+Información coincide: ${coincide}
+Tipo de reporte: ${tiposReporte.join(", ")}
+
+OBSERVACIONES:
+${observaciones}
+
+REGISTRO FOTOGRÁFICO:
+${cantidadFotos} fotografía(s) adjunta(s)
+
+INSPECTOR:
+${inspector}`;
+
+
+        document.getElementById(
+            "textoReporte"
+        ).textContent = reporte;
+
+
+        document.getElementById(
+            "resultado"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "resultado"
+        ).scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+
+    // COMPARTIR POR WHATSAPP
+    async function compartirWhatsApp() {
+
+        const texto =
+            document.getElementById(
+                "textoReporte"
+            ).textContent;
+
+
+        if (navigator.share) {
+
+            try {
+
+                const datosCompartir = {
+                    title: "Reporte de Inspección",
+                    text: texto
+                };
+
+
+                if (
+                    navigator.canShare &&
+                    archivosFotos.length > 0
+                ) {
+
+                    datosCompartir.files =
+                        archivosFotos;
+
+
+                    if (
+                        navigator.canShare(
+                            datosCompartir
+                        )
+                    ) {
+
+                        await navigator.share(
+                            datosCompartir
+                        );
+
+                        return;
+
+                    }
+
+                }
+
+
+                await navigator.share(
+                    datosCompartir
+                );
+
+                return;
+
+            } catch (error) {
+
+                console.log(
+                    "Compartir cancelado o no disponible."
+                );
+
+            }
+
+        }
+
+
+        const url =
+            "https://wa.me/?text=" +
+            encodeURIComponent(texto);
+
+
+        window.open(
+            url,
+            "_blank"
+        );
+
+    }
+
+
+    // LIMPIAR FORMULARIO
+    function limpiarFormulario() {
+
+        if (
+            !confirm(
+                "¿Desea borrar toda la información del reporte?"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "ubicacion"
+        ).value = "";
+
+        document.getElementById(
+            "contratista"
+        ).value = "";
+
+        document.getElementById(
+            "tipoMev"
+        ).value = "";
+
+        document.getElementById(
+            "sticker"
+        ).value = "";
+
+        document.getElementById(
+            "placa"
+        ).value = "";
+
+        document.getElementById(
+            "coincide"
+        ).value = "";
+
+        document.getElementById(
+            "observaciones"
+        ).value = "";
+
+        document.getElementById(
+            "fotos"
+        ).value = "";
+
+        document.getElementById(
+            "inspector"
+        ).value = "";
+
+        document.getElementById(
+            "inspectorOtro"
+        ).value = "";
+
+        document.getElementById(
+            "nombreOtro"
+        ).style.display = "none";
+
+
+        document.querySelectorAll(
+            'input[name="tipoReporte"]'
+        ).forEach(function(casilla) {
+
+            casilla.checked = false;
+
+        });
+
+
+        archivosFotos = [];
+
+
+        document.getElementById(
+            "fotosPreview"
+        ).innerHTML = "";
+
+
+        document.getElementById(
+            "resultado"
+        ).style.display = "none";
+
+
+        actualizarFecha();
+
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
