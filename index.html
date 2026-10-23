@@ -250,6 +250,11 @@
             </select>
         </div>
 
+        <div class="grupo" id="grupoTipoMovil" style="display:none;">
+            <label for="tipoMovil">Tipo de móvil</label>
+            <input type="text" id="tipoMovil" placeholder="Escriba el tipo de móvil">
+        </div>
+
         <div class="grupo" id="grupoPlaca" style="display:none;">
             <label for="placa">Número de móvil o placa</label>
             <input type="text" id="placa" placeholder="Escriba el número de móvil o placa">
@@ -394,9 +399,11 @@
     // MOSTRAR LOS CAMPOS SEGÚN EL TIPO DE REPORTE
     function cambiarTipoReporte() {
         const tipo = document.getElementById("tipoReportePrincipal").value;
+        const grupoTipoMovil = document.getElementById("grupoTipoMovil");
         const grupoPlaca = document.getElementById("grupoPlaca");
         const grupoHallazgos = document.getElementById("grupoHallazgos");
 
+        grupoTipoMovil.style.display = (tipo === "MEV" || tipo === "PESV") ? "block" : "none";
         grupoPlaca.style.display = (tipo === "MEV" || tipo === "PESV") ? "block" : "none";
         grupoHallazgos.style.display = tipo === "MEV" ? "block" : "none";
 
@@ -404,6 +411,7 @@
             document.querySelectorAll('input[name="tipoHallazgo"]').forEach(c => c.checked = false);
         }
         if (tipo !== "MEV" && tipo !== "PESV") {
+            document.getElementById("tipoMovil").value = "";
             document.getElementById("placa").value = "";
         }
     }
@@ -512,6 +520,7 @@
         const ubicacion = document.getElementById("ubicacion").value.trim();
         const contratista = document.getElementById("contratista").value.trim();
         const tipoPrincipal = document.getElementById("tipoReportePrincipal").value;
+        const tipoMovil = document.getElementById("tipoMovil").value.trim();
         const placa = document.getElementById("placa").value.trim();
         const tiposHallazgo = obtenerTiposHallazgo();
         const observaciones = document.getElementById("observaciones").value.trim();
@@ -519,6 +528,11 @@
 
         if (!ubicacion || !contratista || !tipoPrincipal || !observaciones || !inspector) {
             alert("Debe completar Fecha, Ubicación, Contratista, Tipo de reporte, Observaciones e Inspector.");
+            return;
+        }
+
+        if ((tipoPrincipal === "MEV" || tipoPrincipal === "PESV") && !tipoMovil) {
+            alert("Debe escribir el tipo de móvil.");
             return;
         }
 
@@ -540,6 +554,7 @@ Contratista: ${contratista}
 Tipo de reporte: ${tipoPrincipal}`;
 
         if (tipoPrincipal === "MEV" || tipoPrincipal === "PESV") {
+            reporte += `\nTipo de móvil: ${tipoMovil}`;
             reporte += `\nNúmero de móvil o placa: ${placa}`;
         }
 
@@ -572,7 +587,9 @@ ${inspector}`;
             "",
             placa,
             "",
-            tiposHallazgo.length ? tiposHallazgo : [tipoPrincipal],
+            (tipoPrincipal === "MEV" || tipoPrincipal === "PESV")
+                ? [`Tipo de móvil: ${tipoMovil}`, ...(tiposHallazgo.length ? tiposHallazgo : [tipoPrincipal])]
+                : [tipoPrincipal],
             observaciones,
             inspector
         );
@@ -663,6 +680,7 @@ ${inspector}`;
         document.getElementById("ubicacion").value = "";
         document.getElementById("contratista").value = "";
         document.getElementById("tipoReportePrincipal").value = "";
+        document.getElementById("tipoMovil").value = "";
         document.getElementById("placa").value = "";
         document.getElementById("observaciones").value = "";
         document.getElementById("fotos").value = "";
@@ -672,6 +690,7 @@ ${inspector}`;
             casilla.checked = false;
         });
 
+        document.getElementById("grupoTipoMovil").style.display = "none";
         document.getElementById("grupoPlaca").style.display = "none";
         document.getElementById("grupoHallazgos").style.display = "none";
 
