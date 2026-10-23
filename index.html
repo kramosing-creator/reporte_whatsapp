@@ -240,190 +240,79 @@
         </div>
 
         <div class="grupo">
-            <label for="tipoMev">Tipo de MEV</label>
-            <input type="text" id="tipoMev" placeholder="Escriba el tipo de MEV">
-        </div>
-
-        <div class="grupo">
-            <label for="sticker">¿Cuenta con sticker?</label>
-
-            <select id="sticker">
-                <option value="">Seleccione una opción</option>
-                <option value="SI">SI</option>
-                <option value="NO">NO</option>
-                <option value="VISITANTE">VISITANTE</option>
+            <label for="tipoReportePrincipal">Tipo de reporte</label>
+            <select id="tipoReportePrincipal" onchange="cambiarTipoReporte()">
+                <option value="">Seleccione el tipo de reporte</option>
+                <option value="SST">SST</option>
+                <option value="AMBIENTAL">AMBIENTAL</option>
+                <option value="MEV">MEV</option>
+                <option value="PESV">PESV</option>
             </select>
         </div>
 
-        <div class="grupo">
+        <div class="grupo" id="grupoPlaca" style="display:none;">
             <label for="placa">Número de móvil o placa</label>
-
-            <input
-                type="text"
-                id="placa"
-                placeholder="Escriba el número de móvil o placa">
+            <input type="text" id="placa" placeholder="Escriba el número de móvil o placa">
         </div>
 
-        <div class="grupo">
-            <label for="coincide">¿La información coincide?</label>
-
-            <select id="coincide">
-                <option value="">Seleccione una opción</option>
-                <option value="SI">SI</option>
-                <option value="NO">NO</option>
-            </select>
-        </div>
-
-        <div class="grupo">
-
-            <label>Tipo de reporte</label>
-
+        <div class="grupo" id="grupoHallazgos" style="display:none;">
+            <label>Tipo de hallazgo</label>
             <div class="tipos-reporte">
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="HIDRÁULICO">
-                    HIDRÁULICO
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="MECÁNICO">
-                    MECÁNICO
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="ELÉCTRICO">
-                    ELÉCTRICO
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="CHASIS">
-                    CHASIS
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="ESTRUCTURAL">
-                    ESTRUCTURAL
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="NEUMÁTICO">
-                    NEUMÁTICO
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="MOTOR">
-                    MOTOR
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="TRANSMISIÓN">
-                    TRANSMISIÓN
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="FRENOS">
-                    FRENOS
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="SEGURIDAD">
-                    SEGURIDAD
-                </label>
-
-                <label class="opcion-reporte">
-                    <input type="checkbox" name="tipoReporte" value="OTRO">
-                    OTRO
-                </label>
-
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="HIDRÁULICO"> HIDRÁULICO</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="MECÁNICO"> MECÁNICO</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="ELÉCTRICO"> ELÉCTRICO</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="CHASIS"> CHASIS</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="ESTRUCTURAL"> ESTRUCTURAL</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="NEUMÁTICO"> NEUMÁTICO</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="MOTOR"> MOTOR</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="TRANSMISIÓN"> TRANSMISIÓN</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="FRENOS"> FRENOS</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="SEGURIDAD"> SEGURIDAD</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="DOCUMENTACIÓN"> DOCUMENTACIÓN</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="NO CUMPLE"> NO CUMPLE</label>
+                <label class="opcion-reporte"><input type="checkbox" name="tipoHallazgo" value="RETIRADO"> RETIRADO</label>
             </div>
-
-            <div class="ayuda">
-                Puede seleccionar una o varias opciones.
-            </div>
-
+            <div class="ayuda">Puede seleccionar uno o varios tipos de hallazgo.</div>
         </div>
 
         <div class="grupo">
-
-            <label for="observaciones">
-                Observaciones
-            </label>
-
-            <textarea
-                id="observaciones"
-                placeholder="Escriba aquí todas las observaciones necesarias">
-            </textarea>
-
+            <label for="observaciones">Observaciones</label>
+            <textarea id="observaciones" placeholder="Escriba aquí todas las observaciones necesarias"></textarea>
         </div>
 
         <div class="grupo">
-
-            <label for="fotos">
-                Registro fotográfico
-            </label>
-
-            <input
-                type="file"
-                id="fotos"
-                accept="image/*"
-                multiple>
-
-            <div class="nota">
-                Puede seleccionar una o varias fotografías.
-            </div>
-
-            <div
-                id="fotosPreview"
-                class="fotos-preview">
-            </div>
-
+            <label for="fotos">Registro fotográfico</label>
+            <input type="file" id="fotos" accept="image/*" multiple>
+            <div class="nota">Puede seleccionar una o varias fotografías.</div>
+            <div id="fotosPreview" class="fotos-preview"></div>
         </div>
 
         <div class="grupo">
-
-            <label for="inspector">
-                Inspector
-            </label>
-
-            <select id="inspector" onchange="mostrarNombreOtro()">
-
-                <option value="">
-                    Seleccione el inspector
-                </option>
-
-                <option value="RONAL BASTIDAS">
-                    RONAL BASTIDAS
-                </option>
-
-                <option value="JORGE HERNANDEZ">
-                    JORGE HERNANDEZ
-                </option>
-
-                <option value="CARLOS RAMOS">
-                    CARLOS RAMOS
-                </option>
-
-                <option value="OTRO">
-                    OTRO
-                </option>
-
+            <label for="inspector">Inspector</label>
+            <select id="inspector">
+                <option value="">Seleccione el inspector</option>
+                <option value="ANDRES SANTANILLA">ANDRES SANTANILLA</option>
+                <option value="ANGIE NATALIA MONROY">ANGIE NATALIA MONROY</option>
+                <option value="CARLOS RAMOS">CARLOS RAMOS</option>
+                <option value="CINDY PAOLA ARCHILA">CINDY PAOLA ARCHILA</option>
+                <option value="CRISTIAN MORATO">CRISTIAN MORATO</option>
+                <option value="DANIEL GUEVARA">DANIEL GUEVARA</option>
+                <option value="DANIEL SILVA">DANIEL SILVA</option>
+                <option value="EDIS BASTIDAS">EDIS BASTIDAS</option>
+                <option value="GERALDINE HURTADO">GERALDINE HURTADO</option>
+                <option value="GILBERTO BARRERO CHAVEZ">GILBERTO BARRERO CHAVEZ</option>
+                <option value="JOHN GONZALES">JOHN GONZALES</option>
+                <option value="JOHN HERNANDEZ">JOHN HERNANDEZ</option>
+                <option value="JORGE HERNANDEZ">JORGE HERNANDEZ</option>
+                <option value="JULIAN JARAMILLO">JULIAN JARAMILLO</option>
+                <option value="KATHERINE GOMEZ">KATHERINE GOMEZ</option>
+                <option value="MARIA ALEXANDRA PALACIOS">MARIA ALEXANDRA PALACIOS</option>
+                <option value="MATEO DAZA">MATEO DAZA</option>
+                <option value="MIGUEL MARIN">MIGUEL MARIN</option>
+                <option value="OSCAR TOVAR">OSCAR TOVAR</option>
+                <option value="RONALD BASTIDAS">RONALD BASTIDAS</option>
+                <option value="WIILIAM CALDERON">WIILIAM CALDERON</option>
             </select>
-
-            <div
-                id="nombreOtro"
-                class="nombre-otro">
-
-                <label for="inspectorOtro">
-                    Nombre del inspector
-                </label>
-
-                <input
-                    type="text"
-                    id="inspectorOtro"
-                    placeholder="Escriba el nombre del inspector">
-
-            </div>
-
         </div>
 
         <div class="botones">
@@ -502,33 +391,21 @@
     actualizarFecha();
 
 
-    // MOSTRAR CAMPO PARA OTRO INSPECTOR
-    function mostrarNombreOtro() {
+    // MOSTRAR LOS CAMPOS SEGÚN EL TIPO DE REPORTE
+    function cambiarTipoReporte() {
+        const tipo = document.getElementById("tipoReportePrincipal").value;
+        const grupoPlaca = document.getElementById("grupoPlaca");
+        const grupoHallazgos = document.getElementById("grupoHallazgos");
 
-        const inspector =
-            document.getElementById("inspector").value;
+        grupoPlaca.style.display = (tipo === "MEV" || tipo === "PESV") ? "block" : "none";
+        grupoHallazgos.style.display = tipo === "MEV" ? "block" : "none";
 
-        const campo =
-            document.getElementById("nombreOtro");
-
-        const nombre =
-            document.getElementById("inspectorOtro");
-
-
-        if (inspector === "OTRO") {
-
-            campo.style.display = "block";
-
-            nombre.focus();
-
-        } else {
-
-            campo.style.display = "none";
-
-            nombre.value = "";
-
+        if (tipo !== "MEV") {
+            document.querySelectorAll('input[name="tipoHallazgo"]').forEach(c => c.checked = false);
         }
-
+        if (tipo !== "MEV" && tipo !== "PESV") {
+            document.getElementById("placa").value = "";
+        }
     }
 
 
@@ -563,46 +440,11 @@
     );
 
 
-    // OBTENER TIPOS DE REPORTE
-    function obtenerTiposReporte() {
-
-        const seleccionados = [];
-
-        const casillas =
-            document.querySelectorAll(
-                'input[name="tipoReporte"]:checked'
-            );
-
-        casillas.forEach(function(casilla) {
-
-            seleccionados.push(
-                casilla.value
-            );
-
-        });
-
-        return seleccionados;
-
-    }
-
-
-    // OBTENER NOMBRE DEL INSPECTOR
-    function obtenerInspector() {
-
-        const inspector =
-            document.getElementById("inspector").value;
-
-        if (inspector === "OTRO") {
-
-            return document
-                .getElementById("inspectorOtro")
-                .value
-                .trim();
-
-        }
-
-        return inspector;
-
+    // OBTENER TIPOS DE HALLAZGO MEV
+    function obtenerTiposHallazgo() {
+        return Array.from(
+            document.querySelectorAll('input[name="tipoHallazgo"]:checked')
+        ).map(casilla => casilla.value);
     }
 
 
@@ -666,88 +508,46 @@
 
     // GENERAR REPORTE
     function generarReporte() {
+        const fecha = document.getElementById("fecha").value;
+        const ubicacion = document.getElementById("ubicacion").value.trim();
+        const contratista = document.getElementById("contratista").value.trim();
+        const tipoPrincipal = document.getElementById("tipoReportePrincipal").value;
+        const placa = document.getElementById("placa").value.trim();
+        const tiposHallazgo = obtenerTiposHallazgo();
+        const observaciones = document.getElementById("observaciones").value.trim();
+        const inspector = document.getElementById("inspector").value;
 
-        const fecha =
-            document.getElementById("fecha").value;
-
-        const ubicacion =
-            document
-                .getElementById("ubicacion")
-                .value
-                .trim();
-
-        const contratista =
-            document
-                .getElementById("contratista")
-                .value
-                .trim();
-
-        const tipoMev =
-            document
-                .getElementById("tipoMev")
-                .value
-                .trim();
-
-        const sticker =
-            document.getElementById("sticker").value;
-
-        const placa =
-            document
-                .getElementById("placa")
-                .value
-                .trim();
-
-        const coincide =
-            document.getElementById("coincide").value;
-
-        const tiposReporte =
-            obtenerTiposReporte();
-
-        const observaciones =
-            document
-                .getElementById("observaciones")
-                .value
-                .trim();
-
-        const inspector =
-            obtenerInspector();
-
-
-        if (
-            !ubicacion ||
-            !contratista ||
-            !tipoMev ||
-            !sticker ||
-            !placa ||
-            !coincide ||
-            tiposReporte.length === 0 ||
-            !observaciones ||
-            !inspector
-        ) {
-
-            alert(
-                "Debe completar todos los campos y seleccionar al menos un tipo de reporte y un inspector."
-            );
-
+        if (!ubicacion || !contratista || !tipoPrincipal || !observaciones || !inspector) {
+            alert("Debe completar Fecha, Ubicación, Contratista, Tipo de reporte, Observaciones e Inspector.");
             return;
-
         }
 
+        if ((tipoPrincipal === "MEV" || tipoPrincipal === "PESV") && !placa) {
+            alert("Debe escribir el número de móvil o placa.");
+            return;
+        }
 
-        const cantidadFotos =
-            archivosFotos.length;
+        if (tipoPrincipal === "MEV" && tiposHallazgo.length === 0) {
+            alert("Debe seleccionar al menos un tipo de hallazgo para el reporte MEV.");
+            return;
+        }
 
-
-        const reporte =
-`REPORTE DE INSPECCIÓN
+        const cantidadFotos = archivosFotos.length;
+        let reporte = `REPORTE DE INSPECCIÓN
 Fecha: ${fecha}
 Ubicación: ${ubicacion}
 Contratista: ${contratista}
-Tipo de MEV: ${tipoMev}
-Cuenta con sticker: ${sticker}
-Número de móvil o placa: ${placa}
-Información coincide: ${coincide}
-Tipo de reporte: ${tiposReporte.join(", ")}
+Tipo de reporte: ${tipoPrincipal}`;
+
+        if (tipoPrincipal === "MEV" || tipoPrincipal === "PESV") {
+            reporte += `\nNúmero de móvil o placa: ${placa}`;
+        }
+
+        if (tipoPrincipal === "MEV") {
+            reporte += `\nTipo de hallazgo: ${tiposHallazgo.join(", ")}`;
+        }
+
+        reporte += `
 
 OBSERVACIONES:
 ${observaciones}
@@ -758,38 +558,24 @@ ${cantidadFotos} fotografía(s) adjunta(s)
 INSPECTOR:
 ${inspector}`;
 
+        document.getElementById("textoReporte").textContent = reporte;
+        document.getElementById("resultado").style.display = "block";
+        document.getElementById("resultado").scrollIntoView({ behavior: "smooth" });
 
-        document.getElementById(
-            "textoReporte"
-        ).textContent = reporte;
-
-
-        document.getElementById(
-            "resultado"
-        ).style.display = "block";
-
-
-        document.getElementById(
-            "resultado"
-        ).scrollIntoView({
-            behavior: "smooth"
-        });
-
-
-        // GUARDAR LOS DATOS EN GOOGLE SHEETS
+        // Se mantienen los campos que espera el Apps Script existente.
+        // tipoMev guarda la categoría principal; tiposReporte guarda los hallazgos MEV.
         guardarEnGoogleSheets(
             fecha,
             ubicacion,
             contratista,
-            tipoMev,
-            sticker,
+            tipoPrincipal,
+            "",
             placa,
-            coincide,
-            tiposReporte,
+            "",
+            tiposHallazgo.length ? tiposHallazgo : [tipoPrincipal],
             observaciones,
             inspector
         );
-
     }
 
 
@@ -870,96 +656,31 @@ ${inspector}`;
 
     // LIMPIAR FORMULARIO
     function limpiarFormulario() {
-
-        if (
-            !confirm(
-                "¿Desea borrar toda la información del reporte?"
-            )
-        ) {
-
+        if (!confirm("¿Desea borrar toda la información del reporte?")) {
             return;
-
         }
 
+        document.getElementById("ubicacion").value = "";
+        document.getElementById("contratista").value = "";
+        document.getElementById("tipoReportePrincipal").value = "";
+        document.getElementById("placa").value = "";
+        document.getElementById("observaciones").value = "";
+        document.getElementById("fotos").value = "";
+        document.getElementById("inspector").value = "";
 
-        document.getElementById(
-            "ubicacion"
-        ).value = "";
-
-        document.getElementById(
-            "contratista"
-        ).value = "";
-
-        document.getElementById(
-            "tipoMev"
-        ).value = "";
-
-        document.getElementById(
-            "sticker"
-        ).value = "";
-
-        document.getElementById(
-            "placa"
-        ).value = "";
-
-        document.getElementById(
-            "coincide"
-        ).value = "";
-
-        document.getElementById(
-            "observaciones"
-        ).value = "";
-
-        document.getElementById(
-            "fotos"
-        ).value = "";
-
-        document.getElementById(
-            "inspector"
-        ).value = "";
-
-        document.getElementById(
-            "inspectorOtro"
-        ).value = "";
-
-        document.getElementById(
-            "nombreOtro"
-        ).style.display = "none";
-
-
-        document.querySelectorAll(
-            'input[name="tipoReporte"]'
-        ).forEach(function(casilla) {
-
+        document.querySelectorAll('input[name="tipoHallazgo"]').forEach(casilla => {
             casilla.checked = false;
-
         });
 
+        document.getElementById("grupoPlaca").style.display = "none";
+        document.getElementById("grupoHallazgos").style.display = "none";
 
         archivosFotos = [];
-
-
-        document.getElementById(
-            "fotosPreview"
-        ).innerHTML = "";
-
-
-        document.getElementById(
-            "resultado"
-        ).style.display = "none";
-
+        document.getElementById("fotosPreview").innerHTML = "";
+        document.getElementById("resultado").style.display = "none";
 
         actualizarFecha();
-
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
-        });
-
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
 </script>
